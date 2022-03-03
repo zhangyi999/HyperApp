@@ -202,17 +202,17 @@ export const Block = styled.div`
 `
 
 export const Container = styled.div`
-    display: ${p => p.flex ? 'flex': 'block'};
-    justify-content: ${props => props.justify || 'space-between'};
-    align-items: ${props => props.align || 'center'};
-    position: relative;
-    max-width: ${MAX_WIDTH}px;
-    width: 100%;
-    margin: auto;
-    text-align: ${p => p.align || 'center'};
-    box-sizing: border-box;
-    padding: 8px 16px;
-`
+  display: ${(p) => (p.flex ? "flex" : "block")};
+  justify-content: ${(props) => props.justify || "space-between"};
+  align-items: ${(props) => props.align || "center"};
+  position: relative;
+  max-width: ${(p) => (p.maxWidth ? p.maxWidth : MAX_WIDTH)}px;
+  width: 100%;
+  margin: auto;
+  text-align: ${(p) => p.align || "center"};
+  box-sizing: border-box;
+  padding: 8px 16px;
+`;
 
 
 export const HeadBlock = styled(Block)`

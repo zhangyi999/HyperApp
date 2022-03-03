@@ -47,33 +47,33 @@ const SelectBlock = styled.div`
     position: relative;
     /* just */
 `
-function SelectToken({coin, coinName}) {
-    return (
-        <SelectBlock>
-                <Coin
-                    size='32'
-                    style={{
-                        border: '2px solid rgba(0,0,0,0.3)',
-                        borderRadius:'100px'
-                    }}
-                    type={coin}
-                />
-                <TextMD style={{paddingLeft:'.6rem'}}>
-                    {coinName} <TextSM color='2'>{coin.toUpperCase()}</TextSM>
-                </TextMD>
-            {/* </div> */}
-            
-            <Icon
-                type='icon-arrow-down'
-                size='16'
-                style={{
-                    position: 'absolute',
-                    right: '10px'
-                    // marginLeft: 'calc(100% - 20px)'
-                }}
-            />
-        </SelectBlock>
-    )
+export function SelectToken({ coin, coinName }) {
+  return (
+    <SelectBlock>
+      <Coin
+        size="32"
+        style={{
+          border: "2px solid rgba(0,0,0,0.3)",
+          borderRadius: "100px",
+        }}
+        type={coin}
+      />
+      <TextMD style={{ paddingLeft: ".6rem" }}>
+        {coinName} <TextSM color="2">{coin.toUpperCase()}</TextSM>
+      </TextMD>
+      {/* </div> */}
+
+      <Icon
+        type="icon-arrow-down"
+        size="16"
+        style={{
+          position: "absolute",
+          right: "10px",
+          // marginLeft: 'calc(100% - 20px)'
+        }}
+      />
+    </SelectBlock>
+  );
 }
 
 const ExChangeIcon = styled(Icon)`
