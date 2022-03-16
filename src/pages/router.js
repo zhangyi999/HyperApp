@@ -2,11 +2,11 @@
 // import Claim from './Claim'
 // import Withdraw from './Withdraw'
 
+import Swap from "./Swap";
 
-import Swap from './Swap'
-
-import Liquidity from './Liquidity'
-import MyLiquidity from './MyLiquidity'
+import Liquidity from "./Liquidity";
+import MyLiquidity from "./MyLiquidity";
+import Vote from "./Vote";
 import AddLiquidity from "./AddLiquidity";
 
 // import Test from './Test'
@@ -36,9 +36,9 @@ export const Done = [
 
   {
     title: "投票",
-    path: "/stake_lp",
+    path: "/vote",
     // exact: true,
-    component: MyLiquidity,
+    component: Vote,
   },
 
   // {

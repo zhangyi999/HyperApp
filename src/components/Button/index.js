@@ -25,31 +25,32 @@ function Buttons({children, loading, status,  ...other}) {
 }
 
 const ButtonStyled = styled(Buttons)`
-    font-weight: 600;
-    ${props => props.theme.button[props.disabled?4:(props.status || 0)]}
-    /* border: 0rem none !important; */
-    opacity: ${props => props.loading || props.disabled ? 0.75 : 1};
-    &:before{
-        border: 0rem none !important;
-    }
-    border-radius: ${p => p.square ? 1 : 10}rem  !important;
-    text-transform: none !important;
-    position: relative;
-    ${p => p.w ? 'width:'+p.w + '%':''};
-    &.MuiButton-root {
-        /* font-size: 1.6rem; */
-        font-size: ${p => p.theme.size[p.peak ? 0 : p.size || 1]}rem;
-        padding: ${p => p.theme.padding[p.paddingType] || '.4rem 1.2rem'};
-        min-width: auto;
-        font-weight: 500;
-    }
-    &.MuiButton-root:hover {
-        ${props => props.theme.button[props.disabled?4:(props.status || 0)]}
-    }
-    /* border: 1px solid rgba(0,0,0,0); */
-    box-sizing: border-box;
-    ${p => p.loading || p.disabled ? 'pointer-events:none':''};
-`
+  font-weight: 600;
+  ${(props) => props.theme.button[props.disabled ? 4 : props.status || 0]}
+  /* border: 0rem none !important; */
+    opacity: ${(props) => (props.loading || props.disabled ? 0.75 : 1)};
+  &:before {
+    border: 0rem none !important;
+  }
+  border-radius: ${(p) => (p.square ? 1 : 10)}rem !important;
+  text-transform: none !important;
+  position: relative;
+  ${(p) => (p.w ? "width:" + p.w + "%" : "")};
+  &.MuiButton-root {
+    /* font-size: 1.6rem; */
+    font-size: ${(p) => p.theme.size[p.peak ? 0 : p.size || 1]}rem;
+    padding: ${(p) => p.theme.padding[p.paddingType] || ".4rem 1.2rem"};
+    min-width: auto;
+    font-weight: 500;
+  }
+  &.MuiButton-root:hover {
+    ${(props) => props.theme.button[props.disabled ? 4 : props.status || 0]}
+  }
+  /* border: 1px solid rgba(0,0,0,0); */
+  box-sizing: border-box;
+  ${(p) => (p.loading || p.disabled ? "pointer-events:none" : "")};
+  ${(p) => p.style};
+`;
 
 const Left = css`
     &:after {
