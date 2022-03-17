@@ -41,10 +41,6 @@ function LiquidityRow({ row }) {
       <RowBlock w={12.5}>{row[4]}</RowBlock>
       <RowBlock w={12.5}>{row[5]}</RowBlock>
       <RowBlock w={22.5} flex>
-        <Link size="0" to="/my_liquidity">
-          领取奖励
-        </Link>
-        <WingBlank />
         <Link size="0" status="5" to="/my_liquidity">
           管理流动性
         </Link>
