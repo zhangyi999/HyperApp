@@ -17,6 +17,7 @@ import {
   getTokenBalance,
 } from "../../web3/contracts/erc20";
 import FormInput from "./components/FormInput";
+import FormOutput from "./components/FormOutput";
 import FormSwitch from "./components/FormSwitch";
 import SwapButton from "./components/SwapButton";
 import TransformButton from "./components/TransformButton";
@@ -32,6 +33,7 @@ const Swap: React.FC = () => {
   const [fromBalance, setFromBalance] = useState("");
   const [wrapped, setWrapped] = useState(false);
   const [swaping, setSwaping] = useState(false);
+  const [gettingOutput, setGettingOutput] = useState(false);
   const [swapText, setSwapText] = useState("兑换");
 
   const [tokens, setTokens] = useState(TokenData);
@@ -77,6 +79,7 @@ const Swap: React.FC = () => {
   const getOutputTokenNumDebounce = useDebounce(
     () => {
       if (from && to && fromValue && library) {
+        setGettingOutput(true)
         getOutputTokenNum(
           library.provider,
           from.index,
@@ -84,6 +87,7 @@ const Swap: React.FC = () => {
           parseFloat(fromValue),
           wrapped
         ).then((res) => {
+          setGettingOutput(false)
           setToValue(numberFromString(res, 2));
         });
       } else {
@@ -130,7 +134,7 @@ const Swap: React.FC = () => {
   );
 
   const handleExchange = useCallback(() => {
-    if (from && to && fromValue && toValue && library) {
+    if (account && from && to && fromValue && toValue && library) {
       const min_dy = toValue * (1 - setting.userSlippageTolerance / 100);
       const exChangeFn = exchange(
         library.provider,
@@ -138,7 +142,8 @@ const Swap: React.FC = () => {
         to.index,
         parseFloat(fromValue),
         min_dy,
-        wrapped
+        wrapped,
+        { from: account }
       );
       exChangeFn
         .then((res) => {
@@ -154,6 +159,7 @@ const Swap: React.FC = () => {
         });
     }
   }, [
+    account,
     from,
     fromValue,
     library,
@@ -166,7 +172,7 @@ const Swap: React.FC = () => {
 
   const handleApprove = useCallback(async () => {
     try {
-      if (library && from && account) {
+      if (account && library && from && account) {
         setSwapText("正在授权");
         const allowanceValue = await allowance(
           library.provider,
@@ -184,7 +190,8 @@ const Swap: React.FC = () => {
             library.provider,
             from.address,
             TRHEE_ALPACA_CONTRACT,
-            fromValue
+            fromValue,
+            { from: account }
           );
           console.log("approve:", flag);
           return Promise.resolve(flag);
@@ -233,12 +240,15 @@ const Swap: React.FC = () => {
           <FormInput
             label="兑换数量"
             value={fromValue}
-            onChange={setFromValue}
+            balance={fromBalance}
+            onMaxClick={() => {
+              setFromValue(fromBalance);
+            }}
+            onChange={(v) => {
+              setFromValue(v);
+            }}
             inputProps={{
               placeholder: "0.0",
-              // onBlur(e) {
-              //   setFromValue(numberFromString(e.target.value));
-              // },
             }}
           />
         </Box>
@@ -250,8 +260,9 @@ const Swap: React.FC = () => {
             tokens={tokens}
             onChange={handleToTokenChange}
           />
-          <FormInput
+          <FormOutput
             label="可兑换"
+            loading={gettingOutput}
             value={(toValue || 0).toFixed(2)}
             inputProps={{ placeholder: "0.0", readOnly: true }}
           />

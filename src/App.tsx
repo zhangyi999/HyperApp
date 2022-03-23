@@ -1,6 +1,6 @@
 import { Box, ThemeProvider } from "@mui/system";
 import { SnackbarProvider } from "notistack";
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Layout from "./layout";
@@ -45,7 +45,7 @@ function App() {
           vertical: "bottom",
           horizontal: "left",
         }}
-        resumeHideDuration={1.5e3}
+        resumeHideDuration={3000}
         maxSnack={5}
       >
         <Web3ReactProvider getLibrary={getLibrary}>
@@ -74,7 +74,7 @@ function App() {
 export default App;
 
 const Web3ContentHandler: React.FC = ({ children }) => {
-  const { connector, account, active, error } = useWeb3React<Web3Provider>();
+  const { connector, error } = useWeb3React<Web3Provider>();
 
   React.useEffect(() => {
     if (connector) {

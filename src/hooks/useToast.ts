@@ -1,21 +1,28 @@
-import { VariantType, useSnackbar } from "notistack";
+import { VariantType, useSnackbar, OptionsObject } from "notistack";
 import { useCallback } from "react";
 function useToast() {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const handleClickVariant = useCallback(
-    (message: string, variant: VariantType) => {
-      enqueueSnackbar(message, { variant });
+    (message: string, variant: VariantType, options?: OptionsObject) => {
+      return enqueueSnackbar(message, { variant, ...options });
     },
     [enqueueSnackbar]
   );
 
   return {
-    success: (msg: string) => handleClickVariant(msg, "success"),
-    error: (msg: string) => handleClickVariant(msg, "error"),
-    info: (msg: string) => handleClickVariant(msg, "info"),
-    warning: (msg: string) => handleClickVariant(msg, "warning"),
-    default: (msg: string) => handleClickVariant(msg, "default"),
+    success: (msg: string, options?: OptionsObject) =>
+      handleClickVariant(msg, "success", options),
+    error: (msg: string, options?: OptionsObject) =>
+      handleClickVariant(msg, "error", options),
+    info: (msg: string, options?: OptionsObject) =>
+      handleClickVariant(msg, "info", options),
+    warning: (msg: string, options?: OptionsObject) =>
+      handleClickVariant(msg, "warning", options),
+    default: (msg: string, options?: OptionsObject) =>
+      handleClickVariant(msg, "default", options),
+    close: closeSnackbar,
+    show: enqueueSnackbar,
   };
 }
 
